@@ -3,7 +3,7 @@
 //  union-find-graph-generator-xcode
 //
 //  Created by Gil Dekel on 4/27/16.
-//  Last updated by Gil Dekel on 4/27/16.
+//  Last updated by Gil Dekel on 4/28/16.
 //  Copyright © 2016 Gil Dekel. All rights reserved.
 //
 
@@ -33,18 +33,18 @@ private:
         Comparable val;
         std::unordered_set<Comparable> adj_l;
         
-        Vertex(Comparable nuVal) : val(nuVal) {}
+        Vertex(const Comparable &nuVal) : val(nuVal) {}
     };
     
     // The set of vertices searchable by their values.
     std::unordered_map<Comparable, Vertex> vertices_;
     
     // The number of edges in the graph
-    size_t numOfEdges;
+    size_t numOfEdges_;
     
 public:
     // Using default ctors, assignment operators and destructor.
-    UndirectedGraph() : numOfEdges(0) {}
+    UndirectedGraph() : numOfEdges_(0) {}
     UndirectedGraph(const UndirectedGraph &rhs) = default;
     UndirectedGraph& operator=(const UndirectedGraph &rhs) = default;
     UndirectedGraph(UndirectedGraph &&rhs) = default;
@@ -84,6 +84,13 @@ public:
     
     // return the size of the graph (i.e. num of vertices)
     size_t Size() const { return vertices_.size(); }
+    
+    // prints the following stats:
+    //    a) The number of edges that your final graph contains.
+    //    b) The smallest out-degree for a vertex.
+    //    c) The largest out-degree for a vertex.
+    //    d) The average out-degree for a vertex.
+    void PrintGraphStats() const;
     
     // prints the graph for testing.
     // assumes Comparable implements operator<<

@@ -35,8 +35,8 @@ bool UndirectedGraph<Comparable>::ContainsEdge(const Comparable &lhs, const Comp
     // Check if both values are in the graph
     if (ContainsVertex(lhs) && ContainsVertex(rhs)) {
         auto fetchVertex = vertices_.find(lhs);              // get the first vertex.
-        auto findNeighbor = fetchVertex->adj_l.find(rhs);    // find the second vertx in the first vertex's adjacency list.
-        if (findNeighbor == fetchVertex->adj_l.end())
+        auto findNeighbor = fetchVertex->second.adj_l.find(rhs);    // find the second vertx in the first vertex's adjacency list.
+        if (findNeighbor == fetchVertex->second.adj_l.end())
             return false;
         else
             return true;
@@ -52,9 +52,9 @@ bool UndirectedGraph<Comparable>::AddEdge(const Comparable &lhs, const Comparabl
         if (ContainsVertex(lhs) && ContainsVertex(rhs)) {
             auto fetchLeftVertex = vertices_.find(lhs);
             auto fetchRightVertex = vertices_.find(rhs);
-            fetchLeftVertex->adj_l.insert(rhs);             // connect lhs-->rhs
-            fetchRightVertex->adj_l.insert(lhs);            // connect lhs<--rhs
-            ++numOfEdges;                           //update the number of undirected edges in the graph.
+            fetchLeftVertex->second.adj_l.insert(rhs);             // connect lhs-->rhs
+            fetchRightVertex->second.adj_l.insert(lhs);            // connect lhs<--rhs
+            ++numOfEdges_;                           //update the number of undirected edges in the graph.
             return true;
         } else
             return false;
@@ -62,11 +62,34 @@ bool UndirectedGraph<Comparable>::AddEdge(const Comparable &lhs, const Comparabl
 }
 
 template <typename Comparable>
+void UndirectedGraph<Comparable>::PrintGraphStats() const {
+    size_t min = numOfEdges_, max = -1;
+    // num of edges divide by the number of vertices = average out degree of a vertex.
+    double avg = static_cast<double>(numOfEdges_) / vertices_.size();
+    
+    for (auto v : vertices_) {
+        // The out degree of a vertex is the size of its adjacency list.
+        size_t currentOutDeg = v.second.adj_l.size();
+        
+        if (min > currentOutDeg) min = currentOutDeg;
+        if (max < currentOutDeg) max = currentOutDeg;
+    }
+    
+    std::cout << "Current Graph Statistics:\n";
+    std::cout << "Number of vertices: " << vertices_.size() << std::endl;
+    std::cout << "Number of edges: " << numOfEdges_ << std::endl;
+    std::cout << "Smallest out-degree for a vertex: " << min << std::endl;
+    std::cout << "Largest out-degree for a vertex: " << max << std::endl;
+    std::cout << "Average out-degree for a vertex: " << avg << std::endl << std::endl;
+    
+}
+
+template <typename Comparable>
 void UndirectedGraph<Comparable>::printGraph() const {
     for (auto verx : vertices_) {
-        std::cout << "Vertex " << verx.second.val << " is connected to:\n";
+        std::cout << "Vertex: " << verx.second.val << " is connected to:\n\t";
         for (auto neighbor : verx.second.adj_l)
-            std::cout << "\t" << neighbor << std::endl;
+            std::cout << neighbor << ", " << std::endl;
     }
 }
 
