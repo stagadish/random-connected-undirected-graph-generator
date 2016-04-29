@@ -3,7 +3,7 @@
 //  union-find-graph-generator-xcode
 //
 //  Created by Gil Dekel on 4/28/16.
-//  Last updated by Gil Dekel on 4/28/16.
+//  Last updated by Gil Dekel on 4/29/16.
 //  Copyright © 2016 Gil Dekel. All rights reserved.
 //
 
@@ -85,19 +85,10 @@ public:
     // return the number of sets currently in the disjoint set.
     size_t Size() const { return numOfSets_; }
     
-    void printPath(const Comparable &val) const {
-        auto fetchNode = nodes_.find(val);
-        if (fetchNode == nodes_.end()) return;
-        
-        if (fetchNode->second.parent == &fetchNode->second) {
-            std::cout << fetchNode->second.val << ", ";
-        }
-        else {
-            std::cout << fetchNode->second.val << ", ";
-            printPath(fetchNode->second.parent->val);
-        }
-
-    }
+    // a path print test function to print a node's
+    // path to its root. written to test path
+    // compression.
+    void printPath(const Comparable &val) const;
     
 };
 
