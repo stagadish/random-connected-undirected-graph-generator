@@ -63,7 +63,7 @@ bool UndirectedGraph<Comparable>::AddEdge(const Comparable &lhs, const Comparabl
 
 template <typename Comparable>
 void UndirectedGraph<Comparable>::PrintGraphStats() const {
-    size_t min = numOfEdges_, max = -1;
+    size_t min = numOfEdges_, max = 0;
     // num of edges divide by the number of vertices = average out degree of a vertex.
     double avg = static_cast<double>(numOfEdges_) / vertices_.size();
     
@@ -87,9 +87,10 @@ void UndirectedGraph<Comparable>::PrintGraphStats() const {
 template <typename Comparable>
 void UndirectedGraph<Comparable>::printGraph() const {
     for (auto verx : vertices_) {
-        std::cout << "Vertex: " << verx.second.val << " is connected to:\n\t";
+        std::cout << verx.second.val << "\t---> ";
         for (auto neighbor : verx.second.adj_l)
-            std::cout << neighbor << ", " << std::endl;
+            std::cout << neighbor << ", ";
+        std::cout << std::endl;
     }
 }
 

@@ -18,6 +18,7 @@ bool DisjointSet<Comparable>::AddNewNode(const Comparable &val) {
         return false;
     
     nodes_.insert(std::pair<Comparable, Node>(val, Node(val)));
+    nodes_.find(val)->second.parent = &nodes_.find(val)->second;
     ++numOfSets_;
     return true;
 }

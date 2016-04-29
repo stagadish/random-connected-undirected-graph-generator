@@ -7,8 +7,8 @@
 //
 
 
-#include "UndirectedGraph.cpp"
-#include "DisjointSet.cpp"
+#include "UndirectedGraph.hpp"
+#include "DisjointSet.hpp"
 
 #include <iostream>
 #include <cstdlib>
@@ -18,16 +18,16 @@
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "Usage: " << argv[0] << "||||| Should be: <MAXIMUM_NUMBER_OF_NODES>" << std::endl;
+        std::cout << "Usage: " << argv[0] << "||||| Should be: <MAXIMUM_NUMBER_OF_VERTICES>" << std::endl;
         return 0;
     }
-    std::cout << "The maximus number of nodes is " << argv[1] << std::endl;
+    std::cout << "The maximus number of vertices is " << argv[1] << std::endl;
     
     
     // Try to translate STARTING_VERTEX to int in order to queue dijkstra's algorithm.
     try {
         size_t num_of_nodes = std::stoi(argv[1]);
-        const int max_val = 1000;
+        const size_t max_val = num_of_nodes*2;
         UndirectedGraph<int> testGraph;
         DisjointSet<int> testDS;
         
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
             if (testGraph.AddVertex(rndNum) && testDS.AddNewNode(rndNum))
                 --num_of_nodes;
         }
-        
+
         while (testDS.Size() > 1) {
             int i1 = rand() % max_val + 1;
             int i2 = rand() % max_val + 1;
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
             }
         }
         
-        testGraph.printGraph();
+//        testGraph.printGraph();
         testGraph.PrintGraphStats();
         
     } catch (std::invalid_argument) {

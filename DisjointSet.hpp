@@ -34,9 +34,9 @@ private:
         
         // Initialize new Nodes to point to themselves with rank 0.
         // Or, Initialize new Nodes with a val, parent, and rank.
-        Node() : parent(*this), rank(0) {}
+        Node() : parent(nullptr), rank(0) {}
         Node(const Comparable &nuVal, Node* nuParent = nullptr, size_t nuRank = 0)
-            : val(nuVal), rank(nuRank) { parent = (nuParent == nullptr) ? this : nuParent; }
+            : val(nuVal), parent(nuParent), rank(nuRank) {}
     };
     
     // The set of Nodes searchable by their value
@@ -77,5 +77,5 @@ public:
     
 };
 
-//#include "DisjointSet.cpp"
+#include "DisjointSet.cpp"
 #endif /* _DISJOINTSET_H_ */

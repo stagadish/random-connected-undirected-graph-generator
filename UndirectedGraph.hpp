@@ -12,7 +12,8 @@
 
 #include <iostream>
 #include <unordered_set>
-//#include <map>
+#include <map>
+#include <set>
 #include <unordered_map>
 
 /*
@@ -98,4 +99,5 @@ public:
     
 };
 
+#include "UndirectedGraph.cpp"
 #endif /* _UNDIRECTED_GRAPH_H_ */
