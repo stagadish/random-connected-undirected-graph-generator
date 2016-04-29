@@ -3,7 +3,7 @@
 //  union-find-graph-generator-xcode
 //
 //  Created by Gil Dekel on 4/27/16.
-//  Last updated by Gil Dekel on 4/28/16.
+//  Last updated by Gil Dekel on 4/29/16.
 //  Copyright © 2016 Gil Dekel. All rights reserved.
 //
 
@@ -12,12 +12,12 @@
 
 #include <iostream>
 #include <unordered_set>
-#include <map>
-#include <set>
+//#include <map>
+//#include <set>
 #include <unordered_map>
 
 /*
- * This is a simple undirected graph implementation.
+ * This is a simple undirected and unweighted graph implementation.
  *
  * --Assumptions--
  * 1) All vertices are unique (i.e. no duplicates).
@@ -41,6 +41,8 @@ private:
     std::unordered_map<Comparable, Vertex> vertices_;
     
     // The number of edges in the graph
+    // An edge is counted if v1 is connected to v2
+    // and v2 is connected to v1.
     size_t numOfEdges_;
     
 public:
@@ -62,26 +64,20 @@ public:
     // return: True if the vertex was added to the graph. False otherwise.
     bool AddVertex(const Comparable &val);
     
-    // Check if a DIRECTED edge exists between two vertices in the graph.
+    // Check if an edge exists between two vertices in the graph.
     // param lhs: the 'from' vertex value.
     // param rhs: the 'to' vertex value.
     // return: True if the edge exists between the two vertices. False otherwise.
     bool ContainsEdge(const Comparable &lhs, const Comparable &rhs) const;
     
-    // Add a new DIRECTED edge between two vertices in the graph.
+    // Add a new edge between two vertices in the graph.
+    // If successful, lhs-->rhs, and lhs<--rhs after execution.
+    // Will increase the number of edges by ONE if the edge was added successfully.
     // Will work only if both vertices are already in the graph.
     // param lhs: the 'from' vertex value.
     // param rhs: the 'to' vertex value.
-    // param weight: a positive value.
     // return: True if the edge was added between the two vertices. False otherwise.
     bool AddEdge(const Comparable &lhs, const Comparable &rhs);
-    
-    // Get the weight value between two vertices in the graph.
-    // param lhs: the 'from' vertex value.
-    // param rhs: the 'to' vertex value.
-    // return a positive double value if a and edge exists between the two vertices.
-    // -1 otherwise. Remember, no negative weights are allowed.
-    double GetWeightBetween(const Comparable &lhs, const Comparable &rhs) const;
     
     // return the size of the graph (i.e. num of vertices)
     size_t Size() const { return vertices_.size(); }

@@ -34,7 +34,7 @@ template <typename Comparable>
 bool UndirectedGraph<Comparable>::ContainsEdge(const Comparable &lhs, const Comparable &rhs) const {
     // Check if both values are in the graph
     if (ContainsVertex(lhs) && ContainsVertex(rhs)) {
-        auto fetchVertex = vertices_.find(lhs);              // get the first vertex.
+        auto fetchVertex = vertices_.find(lhs);                     // get the first vertex.
         auto findNeighbor = fetchVertex->second.adj_l.find(rhs);    // find the second vertx in the first vertex's adjacency list.
         if (findNeighbor == fetchVertex->second.adj_l.end())
             return false;
@@ -52,9 +52,9 @@ bool UndirectedGraph<Comparable>::AddEdge(const Comparable &lhs, const Comparabl
         if (ContainsVertex(lhs) && ContainsVertex(rhs)) {
             auto fetchLeftVertex = vertices_.find(lhs);
             auto fetchRightVertex = vertices_.find(rhs);
-            fetchLeftVertex->second.adj_l.insert(rhs);             // connect lhs-->rhs
-            fetchRightVertex->second.adj_l.insert(lhs);            // connect lhs<--rhs
-            ++numOfEdges_;                           //update the number of undirected edges in the graph.
+            fetchLeftVertex->second.adj_l.insert(rhs);              // connect lhs-->rhs
+            fetchRightVertex->second.adj_l.insert(lhs);             // connect lhs<--rhs
+            ++numOfEdges_;                                      //increase the number of undirected edges by ONE in the graph.
             return true;
         } else
             return false;
@@ -84,6 +84,7 @@ void UndirectedGraph<Comparable>::PrintGraphStats() const {
     
 }
 
+// Used for testing the creation of the graph.
 template <typename Comparable>
 void UndirectedGraph<Comparable>::printGraph() const {
     for (auto verx : vertices_) {

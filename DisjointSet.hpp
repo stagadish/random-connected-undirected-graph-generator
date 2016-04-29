@@ -32,8 +32,8 @@ private:
         Node* parent;
         size_t rank;
         
-        // Initialize new Nodes to point to themselves with rank 0.
-        // Or, Initialize new Nodes with a val, parent, and rank.
+        // New nodes are initialized to rank = 0 with no parents.
+        // They are later set to point to themselves in AddNewNode().
         Node() : parent(nullptr), rank(0) {}
         Node(const Comparable &nuVal, Node* nuParent = nullptr, size_t nuRank = 0)
             : val(nuVal), parent(nuParent), rank(nuRank) {}
@@ -43,6 +43,7 @@ private:
     std::unordered_map<Comparable, Node> nodes_;
     
     // The number of sets
+    // currently in the data structure.
     size_t numOfSets_;
     
 public:
@@ -67,13 +68,36 @@ public:
     // along the way.
     // param val: The value to find.
     // return: A pointer to the root value.
+    // nullpte is returned if the element is NOT in the set.
     Comparable* Find(const Comparable &val);
     
-    
+    // Union by rank.
+    // Fetch each element's root and decide whether or not
+    // the two should be unioned.
+    // Then consider each nodes rank. The lower ranked will be
+    // joined under the higher rank. If both have equal ranks,
+    // choose one randomly to be inserted under the other.
+    // param lhs: 'From' element.
+    // param rhs: 'To' element.
+    // return: true if the union was made successfully. false otherwise.
     bool Union(const Comparable &lhs, const Comparable &rhs);
     
     // return the number of sets currently in the disjoint set.
     size_t Size() const { return numOfSets_; }
+    
+    void printPath(const Comparable &val) const {
+        auto fetchNode = nodes_.find(val);
+        if (fetchNode == nodes_.end()) return;
+        
+        if (fetchNode->second.parent == &fetchNode->second) {
+            std::cout << fetchNode->second.val << ", ";
+        }
+        else {
+            std::cout << fetchNode->second.val << ", ";
+            printPath(fetchNode->second.parent->val);
+        }
+
+    }
     
 };
 
