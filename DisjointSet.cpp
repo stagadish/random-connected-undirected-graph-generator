@@ -85,7 +85,6 @@ bool DisjointSet<Comparable>::Union(const Comparable &lhs, const Comparable &rhs
     
 }
 
-
 template <typename Comparable>
 void DisjointSet<Comparable>::printPath(const Comparable &val) const {
     auto fetchNode = nodes_.find(val);

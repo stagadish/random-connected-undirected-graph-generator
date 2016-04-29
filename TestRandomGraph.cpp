@@ -44,8 +44,6 @@ int main(int argc, char **argv) {
             testDS.AddNewNode(counter);
             ++counter;
         }
-        
-        std::cout << "Made the graph! WOOT!\n";
 
         srand(time(0)); //use current time as seed for random generator
         while (testDS.Size() > 1) {
